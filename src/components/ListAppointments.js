@@ -2,14 +2,14 @@ import React from 'react';
 import { FaTimes } from 'react-icons/fa';
 import Moment from 'react-moment';
 
-const ListAppointments = ({ appointments }) => {
+const ListAppointments = ({ appointments, deleteAppointment }) => {
     return (
         <div className="appointment-list item-list mb-3">
             {appointments.map((listItems, index) => (
                 <div key={index + 2} className="pet-item col media py-3">
                     <div className="mr-3">
                         <button className="pet-delete btn btn-sm btn-danger"
-                        onClick={() => {this.props.deleteAppointment(listItems)}}>
+                        onClick={() => deleteAppointment(listItems)}>
                             <FaTimes />
                         </button>
                     </div>

@@ -6,8 +6,9 @@ import ListAppointment from './ListAppointments'
 import SearchAppointment from './SearchAppointments'
 
 
+let tempId = 1;
 function App() {
-  const [myAppointment, setAppointment] = useState([]);
+  const [myAppointments, setAppointment] = useState([]);
   useEffect(() => {
     fetch('./data.json')
       .then(response => response.json())
@@ -17,10 +18,24 @@ function App() {
         })
         setAppointment(apts);
       });
-  }, [])
+  }, []);
+
+  const [formDisplay, setFormDisplay] = useState(false);
+
+  const toggleForm = () => {
+    setFormDisplay((formDisplay) => !formDisplay)
+  }
+
+  const addAppointments = (apt) => {
+    let tempApts = myAppointments;
+    apt.aptId = tempId; // Come back to this later
+    tempApts.unshift(apt);
+    setAppointment(tempApts);
+    // tempId + 1;
+  }
 
   const deleteAppointment = (apt) => {
-    let tempApts = myAppointment;
+    let tempApts = myAppointments;
     tempApts = without(tempApts, apt)
     setAppointment(tempApts);
   }
@@ -30,9 +45,13 @@ function App() {
         <div className="row">
           <div className="col-md-12 bg-white">
             <div className="container">
-              <AddAppointment />
+              <AddAppointment
+              formDisplay={formDisplay}
+              toggleForm={toggleForm}
+              addAppointments = {addAppointments}
+              />
               <SearchAppointment />
-              <ListAppointment appointments={myAppointment}
+              <ListAppointment appointments={myAppointments}
               deleteAppointment={deleteAppointment}/>
             </div>
           </div>
