@@ -26,6 +26,7 @@ const AddAppointments = ({formDisplay, toggleForm, addAppointments}) => {
     
     const handleAdd = (e) => {
         e.preventDefault();
+        // Get values and store in a temporary object value
         let tempApt = {
             petName: e.target.petName.value,
             ownerName: e.target.ownerName.value,
@@ -33,8 +34,10 @@ const AddAppointments = ({formDisplay, toggleForm, addAppointments}) => {
             aptNotes: e.target.aptNotes.value
         }
 
+        // Add appointment object to appointment
         addAppointments(tempApt);
 
+        // Reset evething to empty string
         setInputField({
             petName: '',
             ownerName: '',
@@ -42,6 +45,7 @@ const AddAppointments = ({formDisplay, toggleForm, addAppointments}) => {
             aptTime: '',
             aptNotes: ''
         });
+        // Hide the form
         toggleForm();
     }
 
